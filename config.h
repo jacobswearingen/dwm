@@ -1,5 +1,6 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <X11/XF86keysym.h>
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -55,11 +56,16 @@ static const Layout layouts[] = {
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define HOMESHCMD(cmd) SHCMD("~/bin/" cmd)
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+//add yourself to the video group for screen brightness to work: usermod -aG video jacob
+static const char *previousaudio[]  = { "playerctl", "previous", NULL };
+static const char *playaudio[]  = { "playerctl", "play-pause", NULL };
+static const char *nextaudio[]  = { "playerctl", "next", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -96,6 +102,17 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ 0, XF86XK_AudioMute, spawn, SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -44 $(pidof dwmblocks)") },
+	{ 0, XF86XK_AudioRaiseVolume, spawn, SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0%- && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+; kill -44 $(pidof dwmblocks)") },
+	{ 0, XF86XK_AudioLowerVolume, spawn, SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0%+ && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; kill -44 $(pidof dwmblocks)") },
+	//add yourself to the video group for screen and keyboard brightness to work: usermod -aG video jacob
+	{ 0, XF86XK_MonBrightnessUp, spawn, HOMESHCMD("backbright inc") }, 
+	{ 0, XF86XK_MonBrightnessDown, spawn, HOMESHCMD("backbright dec") }, 
+	{ 0, XF86XK_KbdBrightnessUp, spawn,  HOMESHCMD("keybright inc 13") }, 
+	{ 0, XF86XK_KbdBrightnessDown, spawn,  HOMESHCMD("keybright dec 13") }, 
+	{ 0, XF86XK_AudioPlay, spawn, {.v = playaudio } }, 
+	{ 0, XF86XK_AudioPrev, spawn, {.v = previousaudio } }, 
+	{ 0, XF86XK_AudioNext, spawn, {.v = nextaudio } }, 
 };
 
 /* button definitions */
