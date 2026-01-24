@@ -65,10 +65,6 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
-//add yourself to the video group for screen brightness to work: usermod -aG video jacob
-static const char *previousaudio[]  = { "playerctl", "previous", NULL };
-static const char *playaudio[]  = { "playerctl", "play-pause", NULL };
-static const char *nextaudio[]  = { "playerctl", "next", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -113,9 +109,9 @@ static const Key keys[] = {
 	{ 0, XF86XK_MonBrightnessDown, spawn, HOMESHCMD("backbright dec") }, 
 	{ 0, XF86XK_KbdBrightnessUp, spawn,  HOMESHCMD("keybright inc 13") }, 
 	{ 0, XF86XK_KbdBrightnessDown, spawn,  HOMESHCMD("keybright dec 13") }, 
-	{ 0, XF86XK_AudioPlay, spawn, {.v = playaudio } }, 
-	{ 0, XF86XK_AudioPrev, spawn, {.v = previousaudio } }, 
-	{ 0, XF86XK_AudioNext, spawn, {.v = nextaudio } }, 
+	{ 0, XF86XK_AudioPlay, spawn, SHCMD("playerctl play-pause") },
+	{ 0, XF86XK_AudioPrev, spawn, SHCMD("playerctl previous") },
+	{ 0, XF86XK_AudioNext, spawn, SHCMD("playerctl next") }, 
 };
 
 /* button definitions */
