@@ -101,14 +101,14 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	{ 0, XF86XK_AudioMute, spawn, SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -44 $(pidof dwmblocks)") },
-	{ 0, XF86XK_AudioRaiseVolume, spawn, SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0%- && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+; kill -44 $(pidof dwmblocks)") },
-	{ 0, XF86XK_AudioLowerVolume, spawn, SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 0%+ && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; kill -44 $(pidof dwmblocks)") },
+	{ 0, XF86XK_AudioMute, spawn, SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle") },
+	{ 0, XF86XK_AudioRaiseVolume, spawn, SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+") },
+	{ 0, XF86XK_AudioLowerVolume, spawn, SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-") },
 	//add yourself to the video group for screen and keyboard brightness to work: usermod -aG video jacob
-	{ 0, XF86XK_MonBrightnessUp, spawn, HOMESHCMD("backbright inc") }, 
-	{ 0, XF86XK_MonBrightnessDown, spawn, HOMESHCMD("backbright dec") }, 
-	{ 0, XF86XK_KbdBrightnessUp, spawn,  HOMESHCMD("keybright inc 13") }, 
-	{ 0, XF86XK_KbdBrightnessDown, spawn,  HOMESHCMD("keybright dec 13") }, 
+	{ 0, XF86XK_MonBrightnessUp, spawn, SHCMD("backbright inc") }, 
+	{ 0, XF86XK_MonBrightnessDown, spawn, SHCMD("backbright dec") }, 
+	{ 0, XF86XK_KbdBrightnessUp, spawn,  SHCMD("keybright inc") }, 
+	{ 0, XF86XK_KbdBrightnessDown, spawn,  SHCMD("keybright dec") }, 
 	{ 0, XF86XK_AudioPlay, spawn, SHCMD("playerctl play-pause") },
 	{ 0, XF86XK_AudioPrev, spawn, SHCMD("playerctl previous") },
 	{ 0, XF86XK_AudioNext, spawn, SHCMD("playerctl next") }, 
