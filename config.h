@@ -112,6 +112,7 @@ static const Key keys[] = {
 	{ 0, XF86XK_AudioPlay, spawn, SHCMD("playerctl play-pause") },
 	{ 0, XF86XK_AudioPrev, spawn, SHCMD("playerctl previous") },
 	{ 0, XF86XK_AudioNext, spawn, SHCMD("playerctl next") }, 
+	{ 0, XF86XK_AudioMicMute, spawn, SHCMD("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle") },
 };
 
 /* button definitions */
